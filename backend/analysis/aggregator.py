@@ -10,15 +10,14 @@ import pandas as pd
 from analysis.overtrading import detect_overtrading
 from analysis.loss_aversion import detect_loss_aversion
 from analysis.revenge_trading import detect_revenge_trading
-from analysis.anchoring import detect_anchoring
 from analysis.risk_profile import compute_risk_profile
+from analysis.ml_scoring import predict_bias_scores
 
 
 DETECTORS = [
     detect_overtrading,
     detect_loss_aversion,
     detect_revenge_trading,
-    detect_anchoring,
 ]
 
 
@@ -37,6 +36,26 @@ def run_full_analysis(df: pd.DataFrame, session_id: str) -> dict:
         for future in as_completed(future_to_idx):
             idx = future_to_idx[future]
             bias_results[idx] = future.result()
+            
+    # --- Override deterministic scores with ML predictions ---
+    ml_scores = predict_bias_scores(df)
+    for result in bias_results:
+        # Match by ID to safely map predictions
+        if result["bias"] == "overtrading":
+            result["score"] = ml_scores["overtrading"]
+        elif result["bias"] == "loss_aversion":
+            result["score"] = ml_scores["loss_aversion"]
+        elif result["bias"] == "revenge_trading":
+            result["score"] = ml_scores["revenge"]
+            
+        # Update severity string based on new ML score
+        sc = result["score"]
+        if sc < 40:
+            result["severity"] = "Low"
+        elif sc < 70:
+            result["severity"] = "Medium"
+        else:
+            result["severity"] = "High"
 
     # Compute overall risk score = weighted average of bias scores
     scores = [b["score"] for b in bias_results]

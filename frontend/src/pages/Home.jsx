@@ -46,7 +46,7 @@ export default function Home() {
                                 Discover Your Trading Biases
                             </h1>
                             <p style={{ color: 'var(--text-secondary)', fontSize: 15, maxWidth: 480, margin: '0 auto' }}>
-                                Upload your trade history or enter trades manually. We'll analyze overtrading, loss aversion, revenge trading, and anchoring bias — powered by AI.
+                                Upload your trade history or enter trades manually. We'll analyze overtrading, loss aversion, and revenge trading — powered by AI.
                             </p>
                         </div>
 
@@ -98,7 +98,7 @@ export default function Home() {
                                 { icon: '🧠', label: 'Behavioral Analysis' },
                                 { icon: '⚡', label: 'AI-Powered Coach' },
                                 { icon: '📈', label: '5 Chart Types' },
-                                { icon: '🎯', label: '4 Bias Detectors' },
+                                { icon: '🎯', label: '3 Bias Detectors' },
                             ].map(({ icon, label }) => (
                                 <div key={label} style={{
                                     display: 'flex', alignItems: 'center', gap: 6,

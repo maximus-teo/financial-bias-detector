@@ -35,14 +35,6 @@ def get_revenge_trading_analysis(session_id: str, db: Session) -> str:
     return json.dumps(bias, indent=2)
 
 
-def get_anchoring_analysis(session_id: str, db: Session) -> str:
-    report = _get_cached_report(session_id, db)
-    if not report:
-        return "No analysis found. Ask the user to run analysis first."
-    bias = _find_bias(report, "anchoring")
-    return json.dumps(bias, indent=2)
-
-
 def get_full_report(session_id: str, db: Session) -> str:
     report = _get_cached_report(session_id, db)
     if not report:
@@ -141,14 +133,7 @@ TOOLS_SCHEMA = [
             "parameters": {"type": "object", "properties": {}, "required": []},
         },
     },
-    {
-        "type": "function",
-        "function": {
-            "name": "get_anchoring_analysis",
-            "description": "Returns the anchoring bias analysis including price clustering and loss-holding patterns.",
-            "parameters": {"type": "object", "properties": {}, "required": []},
-        },
-    },
+
     {
         "type": "function",
         "function": {
@@ -177,7 +162,7 @@ TOOLS_SCHEMA = [
         "type": "function",
         "function": {
             "name": "compare_bias_scores",
-            "description": "Returns all 4 bias scores ranked worst to best — useful for prioritizing which bias to address first.",
+            "description": "Returns all 3 bias scores ranked worst to best — useful for prioritizing which bias to address first.",
             "parameters": {"type": "object", "properties": {}, "required": []},
         },
     },
@@ -213,7 +198,6 @@ TOOL_MAP = {
     "get_overtrading_analysis": get_overtrading_analysis,
     "get_loss_aversion_analysis": get_loss_aversion_analysis,
     "get_revenge_trading_analysis": get_revenge_trading_analysis,
-    "get_anchoring_analysis": get_anchoring_analysis,
     "get_full_report": get_full_report,
     "get_trade_summary": get_trade_summary,
     "get_risk_profile": get_risk_profile,
