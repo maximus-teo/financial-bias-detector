@@ -79,9 +79,9 @@ export default function Dashboard() {
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-primary)' }}>
             {/* Top navbar */}
             <nav style={{
-                height: 64, display: 'flex', alignItems: 'center',
-                padding: '0 32px', borderBottom: '1px solid var(--border)',
-                background: 'var(--bg-sidebar)', position: 'sticky', top: 0, zIndex: 50,
+                height: 56, display: 'flex', alignItems: 'center',
+                padding: '0 24px', borderBottom: '1px solid var(--border)',
+                background: 'var(--bg-primary)', position: 'sticky', top: 0, zIndex: 50,
                 gap: 24,
             }}>
                 <NBCLogo />
@@ -131,23 +131,23 @@ export default function Dashboard() {
             <div style={{ display: 'flex', flex: 1 }}>
                 {/* Sidebar */}
                 <aside style={{
-                    width: 260, background: 'var(--bg-sidebar)',
+                    width: 220, background: 'var(--bg-sidebar)',
                     borderRight: '1px solid var(--border)',
-                    padding: '24px 0',
+                    padding: '20px 0',
                     flexShrink: 0,
                 }}>
                     {NAV_ITEMS.map(item => (
                         <button key={item.id} onClick={() => setActiveNav(item.id)} style={{
-                            display: 'flex', alignItems: 'center', gap: 12,
-                            width: '100%', padding: '12px 24px', textAlign: 'left',
+                            display: 'flex', alignItems: 'center', gap: 10,
+                            width: '100%', padding: '10px 20px', textAlign: 'left',
                             background: activeNav === item.id ? 'var(--nbc-red-glow)' : 'transparent',
                             borderLeft: activeNav === item.id ? '3px solid var(--nbc-red)' : '3px solid transparent',
                             border: 'none', cursor: 'pointer',
                             color: activeNav === item.id ? 'var(--text-primary)' : 'var(--text-secondary)',
-                            fontSize: 14, fontFamily: 'inherit', fontWeight: activeNav === item.id ? 600 : 400,
+                            fontSize: 13, fontFamily: 'inherit', fontWeight: activeNav === item.id ? 600 : 400,
                             transition: 'all 0.15s',
                         }}>
-                            <span style={{ fontSize: 16 }}>{item.icon}</span>
+                            <span>{item.icon}</span>
                             <span>{item.label}</span>
                         </button>
                     ))}
@@ -190,11 +190,10 @@ export default function Dashboard() {
 
                 {/* Main content */}
                 <main style={{
-                    flex: 1, padding: 32, overflowY: 'auto',
-                    marginRight: chatOpen ? 420 : 0,
+                    flex: 1, padding: 28, overflowY: 'auto',
+                    marginRight: chatOpen ? 380 : 0,
                     transition: 'margin-right 0.28s ease',
-                    display: 'flex', flexDirection: 'column', gap: 24,
-                    maxWidth: 1600,
+                    display: 'flex', flexDirection: 'column', gap: 20,
                 }}>
                     {activeNav === 'overview' && (
                         <>

@@ -20,6 +20,14 @@ export const useSessionStore = create(
             clearSession: () =>
                 set({ sessionId: null, filename: null, tradeCount: 0, report: null }),
         }),
-        { name: 'bias-detector-session' }
+        {
+            name: 'bias-detector-session',
+            partialize: (state) => ({
+                sessionId: state.sessionId,
+                filename: state.filename,
+                tradeCount: state.tradeCount,
+                // report is excluded - fetched from backend on load
+            }),
+        }
     )
 )

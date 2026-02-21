@@ -4,49 +4,41 @@
 @tailwind utilities;
 
 :root {
-  /* Backgrounds - Warmer dark tones */
-  --bg-primary: #0a0a0c;
-  --bg-card: #141416;
-  --bg-card-hover: #1a1a1d;
-  --bg-sidebar: #0f0f11;
-  --bg-elevated: #1e1e22;
+  /* Backgrounds */
+  --bg-primary: #0e0e10;
+  --bg-card: #161618;
+  --bg-card-hover: #1c1c1f;
+  --bg-sidebar: #0e0e10;
 
-  /* Borders - Subtle warm grays */
-  --border: #2d2d33;
-  --border-strong: #3d3d45;
-  --border-accent: #4a4a52;
+  /* Borders */
+  --border: #2a2a2e;
+  --border-strong: #3a3a3f;
 
-  /* Text - Crisp white to soft gray */
-  --text-primary: #fafafa;
-  --text-secondary: #a0a0a8;
-  --text-tertiary: #6a6a75;
+  /* Text */
+  --text-primary: #f2f2f2;
+  --text-secondary: #8a8a96;
+  --text-tertiary: #555560;
 
-  /* NBC Brand Colors - Rich red and professional blue */
-  --nbc-red: #D9232E;
-  --nbc-red-bright: #E8303A;
-  --nbc-red-dim: rgba(217, 35, 46, 0.12);
-  --nbc-red-glow: rgba(217, 35, 46, 0.06);
-  --nbc-blue: #1E4D8C;
-  --nbc-blue-light: #3A7BD5;
-  --nbc-gold: #C9A227;
-  --nbc-light-blue: #E8F1FA;
+  /* NBC Brand */
+  --nbc-red: #E41C23;
+  --nbc-red-dim: rgba(228, 28, 35, 0.15);
+  --nbc-red-glow: rgba(228, 28, 35, 0.08);
+  --nbc-light-blue: #EEF6FB;
 
-  /* Severity - Professional palette */
-  --severity-low: #22C55E;
-  --severity-low-bg: rgba(34, 197, 94, 0.12);
-  --severity-medium: #F59E0B;
-  --severity-medium-bg: rgba(245, 158, 11, 0.12);
-  --severity-high: #D9232E;
-  --severity-high-bg: rgba(217, 35, 46, 0.12);
+  /* Severity */
+  --severity-low: #3dd68c;
+  --severity-low-bg: rgba(61, 214, 140, 0.10);
+  --severity-medium: #f5a623;
+  --severity-medium-bg: rgba(245, 166, 35, 0.10);
+  --severity-high: #E41C23;
+  --severity-high-bg: rgba(228, 28, 35, 0.10);
 
-  /* Charts - NBC branded palette */
-  --chart-primary: #D9232E;
-  --chart-secondary: #3A7BD5;
-  --chart-tertiary: #22C55E;
-  --chart-positive: #22C55E;
-  --chart-negative: #D9232E;
-  --chart-grid: #252529;
-  --chart-line: #3A7BD5;
+  /* Charts */
+  --chart-primary: #E41C23;
+  --chart-secondary: #6e8efb;
+  --chart-positive: #3dd68c;
+  --chart-negative: #E41C23;
+  --chart-grid: #222226;
 }
 
 * {
@@ -79,9 +71,8 @@ body {
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px 28px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 20px 24px;
 }
 
 /* Section label */

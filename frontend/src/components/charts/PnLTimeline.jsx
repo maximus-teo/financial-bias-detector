@@ -6,8 +6,14 @@ import { useMemo } from 'react'
 export default function PnLTimeline({ trades }) {
     const data = useMemo(() => {
         if (!trades?.length) return []
+        // Sample for large datasets (max 500 points for chart)
+        let displayTrades = trades
+        if (trades.length > 500) {
+            const step = Math.ceil(trades.length / 500)
+            displayTrades = trades.filter((_, i) => i % step === 0)
+        }
         let cumulative = 0
-        return trades.map((t, i) => {
+        return displayTrades.map((t, i) => {
             cumulative += t.profit_loss
             return {
                 idx: i + 1,

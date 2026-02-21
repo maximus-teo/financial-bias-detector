@@ -79,6 +79,14 @@ def run_full_analysis(df: pd.DataFrame, session_id: str) -> dict:
     win_rate = round(win_count / len(df), 3) if len(df) > 0 else 0.0
     avg_pnl = round(float(df["profit_loss"].mean()), 2) if len(df) > 0 else 0.0
 
+    # Sample trades for frontend display (max 5000 for charts)
+    max_display_trades = 5000
+    if len(df) > max_display_trades:
+        # Sample evenly across time range
+        display_df = df.iloc[::len(df)//max_display_trades].head(max_display_trades).copy()
+    else:
+        display_df = df
+
     report = {
         "session_id": session_id,
         "generated_at": datetime.utcnow().isoformat(),
@@ -95,8 +103,8 @@ def run_full_analysis(df: pd.DataFrame, session_id: str) -> dict:
             "avg_pnl": avg_pnl,
             "total_pnl": round(float(df["profit_loss"].sum()), 2),
         },
-        # Serialized trade data for charts
-        "trades": json.loads(df.to_json(orient="records", date_format="iso")),
+        # Sampled trade data for charts (max 5000 points)
+        "trades": json.loads(display_df.to_json(orient="records", date_format="iso")),
     }
 
     return report

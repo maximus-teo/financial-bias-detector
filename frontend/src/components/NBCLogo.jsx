@@ -1,22 +1,20 @@
 export function NBCLogo() {
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <img 
-                src="/nbc-logo.jpg" 
-                alt="NBC Logo"
-                style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 8,
-                    objectFit: 'cover',
-                    flexShrink: 0,
-                }}
-            />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{
+                width: 32, height: 32, borderRadius: 6,
+                background: '#E41C23',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontWeight: 800, color: 'white', fontSize: 12, letterSpacing: '-0.5px',
+                flexShrink: 0,
+            }}>
+                NBC
+            </div>
             <div>
-                <div style={{ color: '#f2f2f2', fontWeight: 700, fontSize: 15, lineHeight: 1.2 }}>
+                <div style={{ color: '#f2f2f2', fontWeight: 600, fontSize: 14, lineHeight: 1 }}>
                     National Bank
                 </div>
-                <div style={{ color: '#8a8a96', fontSize: 12, lineHeight: 1.3 }}>
+                <div style={{ color: '#8a8a96', fontSize: 11, lineHeight: 1.6 }}>
                     Bias Detector
                 </div>
             </div>

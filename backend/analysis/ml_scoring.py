@@ -34,19 +34,21 @@ def extract_features(df):
     avg_loss = abs(losses.mean()) if len(losses) > 0 else 0.001
     loss_win_ratio = avg_loss / avg_win if avg_win > 0 else 1.0
     
-    # Feature 3: Time to re-entry after loss
-    re_entry_times = []
-    df_reset = df.reset_index(drop=True)
-    for i in range(len(df_reset) - 1):
-        if df_reset.loc[i, "profit_loss"] < 0:
-            re_entry_times.append((df_reset.loc[i+1, "timestamp"] - df_reset.loc[i, "timestamp"]).total_seconds())
-            
-    avg_time_after_loss = np.mean(re_entry_times) if len(re_entry_times) > 0 else avg_time_between_trades
+    # Feature 3: Time to re-entry after loss - VECTORIZED
+    # Create shifted profit_loss to detect trades after losses
+    prev_profit_loss = df["profit_loss"].shift(1)
+    time_diffs_after_loss = df["timestamp"].diff().dt.total_seconds()
+    
+    # Only consider times where previous trade was a loss
+    after_loss_mask = prev_profit_loss < 0
+    re_entry_times = time_diffs_after_loss[after_loss_mask].dropna()
+    
+    avg_time_after_loss = re_entry_times.mean() if len(re_entry_times) > 0 else avg_time_between_trades
 
     # Feature 4: win rate
     win_rate = len(wins) / len(df) if len(df) > 0 else 0.5
     
-    # Feature 5: holding time equivalent (proxy by number of shares or volume metrics or just pnl var)
+    # Feature 5: pnl std
     pnl_std = df["profit_loss"].std() if len(df) > 1 else 0
     
     return {

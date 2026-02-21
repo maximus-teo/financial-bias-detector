@@ -6,8 +6,14 @@ import { useMemo } from 'react'
 export default function DrawdownChart({ trades }) {
     const data = useMemo(() => {
         if (!trades?.length) return []
-        let peak = trades[0]?.balance || 0
-        return trades.map((t, i) => {
+        // Sample for large datasets (max 500 points for chart)
+        let displayTrades = trades
+        if (trades.length > 500) {
+            const step = Math.ceil(trades.length / 500)
+            displayTrades = trades.filter((_, i) => i % step === 0)
+        }
+        let peak = displayTrades[0]?.balance || 0
+        return displayTrades.map((t, i) => {
             if (t.balance > peak) peak = t.balance
             const drawdown = peak > 0 ? ((peak - t.balance) / peak) * 100 : 0
             return {

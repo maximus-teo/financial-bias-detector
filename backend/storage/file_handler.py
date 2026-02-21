@@ -37,12 +37,26 @@ def _validate_and_clean(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def parse_csv_upload(content: bytes) -> Tuple[pd.DataFrame, str]:
-    """Parse CSV bytes, validate schema, return (DataFrame, json_string)."""
-    df = pd.read_csv(
-        io.BytesIO(content),
-        dtype=DTYPE_MAP,
-        parse_dates=["timestamp"],
-    )
+    """Parse CSV bytes, validate schema, return (DataFrame, json_string).
+    Uses chunked reading for large files."""
+    # For large files, read in chunks
+    chunk_size = 50000
+    if len(content) > 10 * 1024 * 1024:  # > 10MB
+        chunks = []
+        for chunk in pd.read_csv(
+            io.BytesIO(content),
+            dtype=DTYPE_MAP,
+            parse_dates=["timestamp"],
+            chunksize=chunk_size,
+        ):
+            chunks.append(chunk)
+        df = pd.concat(chunks, ignore_index=True)
+    else:
+        df = pd.read_csv(
+            io.BytesIO(content),
+            dtype=DTYPE_MAP,
+            parse_dates=["timestamp"],
+        )
     df = _validate_and_clean(df)
     trades_json = df.to_json(orient="records", date_format="iso")
     return df, trades_json

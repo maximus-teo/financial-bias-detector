@@ -65,6 +65,12 @@ async def upload_csv(file: UploadFile = File(...), db: Session = Depends(get_db)
     except Exception as e:
         raise HTTPException(status_code=422, detail=f"File parse error: {str(e)}")
 
+    # Sample trades for DB storage (max 10000 for analysis, full dataset too large)
+    max_db_trades = 10000
+    if len(df) > max_db_trades:
+        sample_df = df.iloc[::len(df)//max_db_trades].head(max_db_trades)
+        trades_json = sample_df.to_json(orient="records", date_format="iso")
+
     session = TradingSession(
         id=session_id,
         filename=file.filename,
