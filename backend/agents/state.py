@@ -1,10 +1,10 @@
 """LangGraph agent state definition."""
+import operator
 from typing import Annotated, TypedDict
-from langgraph.graph.message import add_messages
 
 
 class AgentState(TypedDict):
-    messages: Annotated[list, add_messages]
+    messages: Annotated[list, operator.add]
     session_id: str
     onboarding_complete: bool
     psychological_profile: dict

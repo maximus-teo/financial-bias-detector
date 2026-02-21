@@ -6,7 +6,7 @@ export default function BiasDashboard({ biases }) {
     return (
         <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: 'repeat(3, 1fr)',
             gap: 16,
         }}>
             {biases.map((bias, i) => (

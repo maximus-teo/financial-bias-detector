@@ -6,7 +6,6 @@ const BIAS_LABELS = {
     overtrading: 'Overtrading',
     loss_aversion: 'Loss Aversion',
     revenge_trading: 'Revenge Trading',
-    anchoring: 'Anchoring',
 }
 
 export default function BiasRadar({ biases }) {

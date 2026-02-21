@@ -123,7 +123,8 @@ async def analyze_session(session_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="No trades loaded for this session.")
 
     import pandas as pd
-    df = pd.read_json(session.trades_json, orient="records")
+    import io
+    df = pd.read_json(io.StringIO(session.trades_json), orient="records")
     df["timestamp"] = pd.to_datetime(df["timestamp"])
 
     try:

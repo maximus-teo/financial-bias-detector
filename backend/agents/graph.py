@@ -62,7 +62,7 @@ def call_model(state: AgentState) -> AgentState:
     messages = [{"role": "system", "content": system_prompt}] + list(state["messages"])
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b",
+        model="llama3.1-8b",
         messages=messages,
         tools=TOOLS_SCHEMA,
         tool_choice="auto",
