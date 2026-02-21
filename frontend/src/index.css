@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Backgrounds */
+  --bg-primary: #0e0e10;
+  --bg-card: #161618;
+  --bg-card-hover: #1c1c1f;
+  --bg-sidebar: #0e0e10;
+
+  /* Borders */
+  --border: #2a2a2e;
+  --border-strong: #3a3a3f;
+
+  /* Text */
+  --text-primary: #f2f2f2;
+  --text-secondary: #8a8a96;
+  --text-tertiary: #555560;
+
+  /* NBC Brand */
+  --nbc-red: #E41C23;
+  --nbc-red-dim: rgba(228, 28, 35, 0.15);
+  --nbc-red-glow: rgba(228, 28, 35, 0.08);
+  --nbc-light-blue: #EEF6FB;
+
+  /* Severity */
+  --severity-low: #3dd68c;
+  --severity-low-bg: rgba(61, 214, 140, 0.10);
+  --severity-medium: #f5a623;
+  --severity-medium-bg: rgba(245, 166, 35, 0.10);
+  --severity-high: #E41C23;
+  --severity-high-bg: rgba(228, 28, 35, 0.10);
+
+  /* Charts */
+  --chart-primary: #E41C23;
+  --chart-secondary: #6e8efb;
+  --chart-positive: #3dd68c;
+  --chart-negative: #E41C23;
+  --chart-grid: #222226;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+/* Numeric displays */
+.tabular-nums {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+/* Card */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+
+/* Section label */
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* NBC Button */
+.btn-primary {
+  background: var(--nbc-red);
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Severity pills */
+.pill-low {
+  background: var(--severity-low-bg);
+  color: var(--severity-low);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.pill-medium {
+  background: var(--severity-medium-bg);
+  color: var(--severity-medium);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.pill-high {
+  background: var(--severity-high-bg);
+  color: var(--severity-high);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+input, select, textarea {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-strong);
+  border-radius: 7px;
+  color: var(--text-primary);
+  padding: 9px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--nbc-red);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-tertiary);
+}
