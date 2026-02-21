@@ -122,6 +122,51 @@ def update_psychological_profile(session_id: str, profile_update: str, db: Sessi
     return "Profile updated and dashboard stats adjusted if necessary."
 
 
+def adjust_bias_scores(session_id: str, adjustments_json: str, db: Session) -> str:
+    """
+    Directly adjust the bias scores in the dashboard report based on AI assessment.
+    adjustments_json: JSON string mapping bias name to new score (0.0 to 1.0).
+    Example: '{"overtrading": 0.85, "revenge_trading": 0.9}'
+    """
+    from models.db_models import TradingSession
+    session = db.query(TradingSession).filter(TradingSession.id == session_id).first()
+    if not session or not session.report_json:
+        return "Session or report not found."
+
+    try:
+        adjustments = json.loads(adjustments_json)
+    except json.JSONDecodeError:
+        return "Invalid JSON in adjustments."
+
+    report = json.loads(session.report_json)
+    biases = report.get("biases", [])
+    
+    updated_biases = []
+    for b in biases:
+        name = b["bias"]
+        if name in adjustments:
+            new_score = float(adjustments[name])
+            b["score"] = min(1.0, max(0.0, new_score))
+            # Update severity
+            if b["score"] >= 0.65:
+                b["severity"] = "High"
+            elif b["score"] >= 0.35:
+                b["severity"] = "Medium"
+            else:
+                b["severity"] = "Low"
+            updated_biases.append(name)
+    
+    if updated_biases:
+        # Recalculate overall risk score
+        scores = [b["score"] for b in biases]
+        report["overall_risk_score"] = round(sum(scores) / len(scores), 2) if scores else 0.0
+        session.report_json = json.dumps(report)
+        db.commit()
+        return f"Adjusted scores for: {', '.join(updated_biases)}. Dashboard updated."
+    
+    return "No matching biases found to adjust."
+
+
 def get_psychological_profile(session_id: str, db: Session) -> str:
     from models.db_models import TradingSession
     session = db.query(TradingSession).filter(TradingSession.id == session_id).first()
@@ -215,6 +260,23 @@ TOOLS_SCHEMA = [
             "parameters": {"type": "object", "properties": {}, "required": []},
         },
     },
+    {
+        "type": "function",
+        "function": {
+            "name": "adjust_bias_scores",
+            "description": "Adjusts the scores on the user's dashboard based on your psychological assessment of their behavior (e.g. if they admit to a bias).",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "adjustments_json": {
+                        "type": "string",
+                        "description": "JSON string mapping bias name ('overtrading', 'loss_aversion', 'revenge_trading', 'anchoring') to a new score from 0.0 to 1.0. Example: '{\"revenge_trading\": 0.95}'",
+                    }
+                },
+                "required": ["adjustments_json"],
+            },
+        },
+    },
 ]
 
 # Map tool name → function
@@ -228,6 +290,7 @@ TOOL_MAP = {
     "compare_bias_scores": compare_bias_scores,
     "update_psychological_profile": update_psychological_profile,
     "get_psychological_profile": get_psychological_profile,
+    "adjust_bias_scores": adjust_bias_scores,
 }
 
 

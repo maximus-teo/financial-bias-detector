@@ -48,8 +48,8 @@ export default function RiskProfileBadge({ report }) {
                 {[
                     { label: 'Total Trades', value: report.trade_count, format: v => v.toLocaleString() },
                     { label: 'Win Rate', value: summary_stats.win_rate, format: v => `${(v * 100).toFixed(1)}%` },
-                    { label: 'Total P&L', value: summary_stats.total_pnl, format: v => `${v >= 0 ? '+' : ''}$${v.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` },
-                    { label: 'Avg P&L', value: summary_stats.avg_pnl, format: v => `${v >= 0 ? '+' : ''}$${Math.abs(v).toFixed(2)}` },
+                    { label: 'Total P&L', value: summary_stats.total_pnl, format: v => `${v >= 0 ? '+' : '-'}$${Math.abs(v).toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` },
+                    { label: 'Avg P&L', value: summary_stats.avg_pnl, format: v => `${v >= 0 ? '+' : '-'}$${Math.abs(v).toFixed(2)}` },
                 ].map(({ label, value, format }) => {
                     const isNeg = typeof value === 'number' && value < 0 && label.includes('P&L')
                     const isPos = typeof value === 'number' && value > 0 && label.includes('P&L')

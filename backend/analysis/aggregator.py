@@ -79,13 +79,8 @@ def run_full_analysis(df: pd.DataFrame, session_id: str) -> dict:
     win_rate = round(win_count / len(df), 3) if len(df) > 0 else 0.0
     avg_pnl = round(float(df["profit_loss"].mean()), 2) if len(df) > 0 else 0.0
 
-    # Sample trades for frontend display (max 5000 for charts)
-    max_display_trades = 5000
-    if len(df) > max_display_trades:
-        # Sample evenly across time range
-        display_df = df.iloc[::len(df)//max_display_trades].head(max_display_trades).copy()
-    else:
-        display_df = df
+    # No capped sampling; send full dataset for charts (as requested)
+    display_df = df
 
     report = {
         "session_id": session_id,

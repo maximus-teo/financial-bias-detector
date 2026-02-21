@@ -79,10 +79,10 @@ export default function Dashboard() {
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-primary)' }}>
             {/* Top navbar */}
             <nav style={{
-                height: 56, display: 'flex', alignItems: 'center',
+                height: 128, display: 'flex', alignItems: 'center',
                 padding: '0 24px', borderBottom: '1px solid var(--border)',
-                background: 'var(--bg-primary)', position: 'sticky', top: 0, zIndex: 50,
-                gap: 24,
+                background: 'var(--nbc-gray)', position: 'sticky', top: 0, zIndex: 50,
+                gap: 10,
             }}>
                 <NBCLogo />
                 <div style={{ flex: 1 }} />
@@ -110,8 +110,9 @@ export default function Dashboard() {
                             background: chatOpen ? 'var(--nbc-red)' : 'var(--bg-card)',
                             border: '1px solid var(--border)',
                             color: chatOpen ? 'white' : 'var(--text-primary)',
-                            borderRadius: 8, padding: '7px 14px', cursor: 'pointer',
-                            fontSize: 13, fontWeight: 500, fontFamily: 'inherit',
+                            borderRadius: 0, padding: '7px 14px', cursor: 'pointer',
+                            height: 128,
+                            fontSize: 18, fontWeight: 500, fontFamily: 'inherit',
                             transition: 'all 0.15s',
                         }}
                     >
@@ -120,7 +121,7 @@ export default function Dashboard() {
                     <button onClick={() => navigate('/')} style={{
                         background: 'none', border: '1px solid var(--border)',
                         color: 'var(--text-secondary)', borderRadius: 8, padding: '7px 14px',
-                        cursor: 'pointer', fontSize: 13, fontFamily: 'inherit',
+                        cursor: 'pointer', fontSize: 18, fontFamily: 'inherit',
                     }}>
                         ← New Session
                     </button>

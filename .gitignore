@@ -1,3 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+backend/.env
 
-backend/trading_session.db
+# Databases
 *.db
+*.sqlite3
+backend/trading_session.db
+backend/bias_detector.db
+
+# Node
+node_modules/
+dist/
+.DS_Store
+
+# Frontend specifics
+frontend/node_modules/
+frontend/dist/
+
+# OS
+.DS_Store
+Thumbs.db

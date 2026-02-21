@@ -140,6 +140,8 @@ def call_tools(state: AgentState, db: Session) -> AgentState:
                 # All tools take session_id and db as first args
                 if "profile_update" in args:
                     result = tool_fn(session_id, args["profile_update"], db)
+                elif "adjustments_json" in args:
+                    result = tool_fn(session_id, args["adjustments_json"], db)
                 else:
                     result = tool_fn(session_id, db)
             except Exception as e:
