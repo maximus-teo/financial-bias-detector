@@ -1,0 +1,182 @@
+[
+    {
+        "timestamp": "2025-03-08T07:52:00.000",
+        "asset": "TSLA",
+        "side": "BUY",
+        "quantity": 101.0,
+        "entry_price": 378.6020611477,
+        "exit_price": 376.5124866554,
+        "profit_loss": -211.0470237149,
+        "balance": 20112.7538745504
+    },
+    {
+        "timestamp": "2025-03-08T07:53:00.000",
+        "asset": "AMZN",
+        "side": "SELL",
+        "quantity": 142.0,
+        "entry_price": 159.8705009346,
+        "exit_price": 158.4338110642,
+        "profit_loss": -204.0099615868,
+        "balance": 19908.7439129636
+    },
+    {
+        "timestamp": "2025-03-08T07:54:00.000",
+        "asset": "GOOG",
+        "side": "BUY",
+        "quantity": 177.0,
+        "entry_price": 3157.1143030886,
+        "exit_price": 3156.3124152012,
+        "profit_loss": -141.9341560815,
+        "balance": 19766.809756882
+    },
+    {
+        "timestamp": "2025-03-08T07:55:00.000",
+        "asset": "NVDA",
+        "side": "SELL",
+        "quantity": 117.0,
+        "entry_price": 3409.3642064159,
+        "exit_price": 3410.4631536233,
+        "profit_loss": 128.5768232636,
+        "balance": 19895.3865801457
+    },
+    {
+        "timestamp": "2025-03-08T07:56:00.000",
+        "asset": "NVDA",
+        "side": "BUY",
+        "quantity": 78.0,
+        "entry_price": 2917.5941023385,
+        "exit_price": 2916.6800822023,
+        "profit_loss": -71.2935706233,
+        "balance": 19824.0930095224
+    },
+    {
+        "timestamp": "2025-03-08T07:57:00.000",
+        "asset": "MSFT",
+        "side": "SELL",
+        "quantity": 42.0,
+        "entry_price": 1248.0,
+        "exit_price": 1248.7961701236,
+        "profit_loss": -33.43914,
+        "balance": 19729.198932055
+    },
+    {
+        "timestamp": "2025-03-08T07:58:00.000",
+        "asset": "AAPL",
+        "side": "BUY",
+        "quantity": 65.0,
+        "entry_price": 2415.932357413,
+        "exit_price": 2416.8135786205,
+        "profit_loss": 57.2793784917,
+        "balance": 19786.4783105466
+    },
+    {
+        "timestamp": "2025-03-08T07:59:00.000",
+        "asset": "GOOG",
+        "side": "BUY",
+        "quantity": 56.0,
+        "entry_price": 1067.0475318944,
+        "exit_price": 1063.1538996554,
+        "profit_loss": -218.043405383,
+        "balance": 19568.4349051636
+    },
+    {
+        "timestamp": "2025-03-08T08:00:00.000",
+        "asset": "AAPL",
+        "side": "BUY",
+        "quantity": 185.0,
+        "entry_price": 278.3829258817,
+        "exit_price": 281.3174020932,
+        "profit_loss": 542.8780991383,
+        "balance": 20111.3130043019
+    },
+    {
+        "timestamp": "2025-03-08T08:01:00.000",
+        "asset": "TSLA",
+        "side": "BUY",
+        "quantity": 122.0,
+        "entry_price": 1406.3367206825,
+        "exit_price": 1403.743324387,
+        "profit_loss": -316.3943480489,
+        "balance": 19794.918656253
+    },
+    {
+        "timestamp": "2025-03-08T08:02:00.000",
+        "asset": "GOOG",
+        "side": "SELL",
+        "quantity": 55.0,
+        "entry_price": 110.33527961,
+        "exit_price": 109.6700315671,
+        "profit_loss": -36.5886423584,
+        "balance": 19758.3300138946
+    },
+    {
+        "timestamp": "2025-03-08T08:03:00.000",
+        "asset": "AAPL",
+        "side": "SELL",
+        "quantity": 39.0,
+        "entry_price": 745.1421762233,
+        "exit_price": 746.7142934034,
+        "profit_loss": 61.3125700228,
+        "balance": 19819.6425839174
+    },
+    {
+        "timestamp": "2025-03-08T08:04:00.000",
+        "asset": "UNKNOWN",
+        "side": "SELL",
+        "quantity": 153.0,
+        "entry_price": 180.1067102355,
+        "exit_price": 180.8423156405,
+        "profit_loss": 112.5476269656,
+        "balance": 19932.190210883
+    },
+    {
+        "timestamp": "2025-03-08T08:05:00.000",
+        "asset": "AMZN",
+        "side": "SELL",
+        "quantity": 41.0,
+        "entry_price": 2012.3798261057,
+        "exit_price": 2012.9171263042,
+        "profit_loss": 22.0293081374,
+        "balance": 19954.2195190204
+    },
+    {
+        "timestamp": "2025-03-08T08:06:00.000",
+        "asset": "TSLA",
+        "side": "BUY",
+        "quantity": 95.0,
+        "entry_price": 2451.5950449136,
+        "exit_price": 2454.6508100805,
+        "profit_loss": 290.2976908576,
+        "balance": 20244.517209878
+    },
+    {
+        "timestamp": "2025-03-08T08:07:00.000",
+        "asset": "TSLA",
+        "side": "SELL",
+        "quantity": 134.0,
+        "entry_price": 2380.9123646506,
+        "exit_price": 2382.8750621204,
+        "profit_loss": 263.0014609651,
+        "balance": 20507.518670843
+    },
+    {
+        "timestamp": "2025-03-08T08:08:00.000",
+        "asset": "NVDA",
+        "side": "BUY",
+        "quantity": 68.0,
+        "entry_price": 1182.1123906536,
+        "exit_price": 1182.4938683159,
+        "profit_loss": 25.9404810356,
+        "balance": 20630.7696279016
+    },
+    {
+        "timestamp": "2025-03-08T08:09:00.000",
+        "asset": "TSLA",
+        "side": "SELL",
+        "quantity": 69.0,
+        "entry_price": 363.2498659517,
+        "exit_price": 363.472472426,
+        "profit_loss": 15.359846722,
+        "balance": 20646.1294746236
+    }
+]
