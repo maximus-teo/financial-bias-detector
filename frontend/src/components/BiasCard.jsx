@@ -12,7 +12,8 @@ function CircleGauge({ score, severity }) {
         medium: 'var(--severity-medium)',
         high: 'var(--nbc-red)',
     }
-    const color = colors[severity] || colors.low
+    const safeSeverity = (severity || 'low').toLowerCase()
+    const color = colors[safeSeverity] || colors.low
     const r = 36
     const circ = 2 * Math.PI * r
     const pct = Math.min(1, Math.max(0, score))
@@ -50,8 +51,9 @@ function CircleGauge({ score, severity }) {
 }
 
 export default function BiasCard({ bias, index = 0 }) {
-    const pillClass = `pill-${bias.severity}`
-    const isHigh = bias.severity === 'high'
+    const severityLower = (bias.severity || 'low').toLowerCase()
+    const pillClass = `pill-${severityLower}`
+    const isHigh = severityLower === 'high'
 
     return (
         <motion.div
@@ -98,8 +100,8 @@ export default function BiasCard({ bias, index = 0 }) {
                 <motion.div
                     style={{
                         height: '100%', borderRadius: 4,
-                        background: bias.severity === 'high' ? 'var(--nbc-red)'
-                            : bias.severity === 'medium' ? 'var(--severity-medium)'
+                        background: severityLower === 'high' ? 'var(--nbc-red)'
+                            : severityLower === 'medium' ? 'var(--severity-medium)'
                                 : 'var(--severity-low)',
                     }}
                     initial={{ width: 0 }}
@@ -117,8 +119,8 @@ export default function BiasCard({ bias, index = 0 }) {
                             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                                 <div style={{
                                     width: 6, height: 6, borderRadius: '50%', flexShrink: 0,
-                                    background: bias.severity === 'high' ? 'var(--nbc-red)'
-                                        : bias.severity === 'medium' ? 'var(--severity-medium)'
+                                    background: severityLower === 'high' ? 'var(--nbc-red)'
+                                        : severityLower === 'medium' ? 'var(--severity-medium)'
                                             : 'var(--severity-low)',
                                 }} />
                                 <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{sig.label}</span>
