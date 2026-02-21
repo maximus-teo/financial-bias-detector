@@ -9,7 +9,6 @@ import BiasDashboard from '../components/BiasDashboard'
 import ChatPanel from '../components/ChatPanel'
 import PnLTimeline from '../components/charts/PnLTimeline'
 import BiasRadar from '../components/charts/BiasRadar'
-import TradingHeatmap from '../components/charts/TradingHeatmap'
 import WinLossBar from '../components/charts/WinLossBar'
 import DrawdownChart from '../components/charts/DrawdownChart'
 
@@ -17,7 +16,6 @@ const NAV_ITEMS = [
     { icon: '📊', label: 'Overview', id: 'overview' },
     { icon: '🧠', label: 'Biases', id: 'biases' },
     { icon: '📈', label: 'Performance', id: 'performance' },
-    { icon: '🗓', label: 'Heatmap', id: 'heatmap' },
 ]
 
 export default function Dashboard() {
@@ -81,9 +79,9 @@ export default function Dashboard() {
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-primary)' }}>
             {/* Top navbar */}
             <nav style={{
-                height: 56, display: 'flex', alignItems: 'center',
-                padding: '0 24px', borderBottom: '1px solid var(--border)',
-                background: 'var(--bg-primary)', position: 'sticky', top: 0, zIndex: 50,
+                height: 64, display: 'flex', alignItems: 'center',
+                padding: '0 32px', borderBottom: '1px solid var(--border)',
+                background: 'var(--bg-sidebar)', position: 'sticky', top: 0, zIndex: 50,
                 gap: 24,
             }}>
                 <NBCLogo />
@@ -133,23 +131,23 @@ export default function Dashboard() {
             <div style={{ display: 'flex', flex: 1 }}>
                 {/* Sidebar */}
                 <aside style={{
-                    width: 220, background: 'var(--bg-sidebar)',
+                    width: 260, background: 'var(--bg-sidebar)',
                     borderRight: '1px solid var(--border)',
-                    padding: '20px 0',
+                    padding: '24px 0',
                     flexShrink: 0,
                 }}>
                     {NAV_ITEMS.map(item => (
                         <button key={item.id} onClick={() => setActiveNav(item.id)} style={{
-                            display: 'flex', alignItems: 'center', gap: 10,
-                            width: '100%', padding: '10px 20px', textAlign: 'left',
+                            display: 'flex', alignItems: 'center', gap: 12,
+                            width: '100%', padding: '12px 24px', textAlign: 'left',
                             background: activeNav === item.id ? 'var(--nbc-red-glow)' : 'transparent',
                             borderLeft: activeNav === item.id ? '3px solid var(--nbc-red)' : '3px solid transparent',
                             border: 'none', cursor: 'pointer',
                             color: activeNav === item.id ? 'var(--text-primary)' : 'var(--text-secondary)',
-                            fontSize: 13, fontFamily: 'inherit', fontWeight: activeNav === item.id ? 600 : 400,
+                            fontSize: 14, fontFamily: 'inherit', fontWeight: activeNav === item.id ? 600 : 400,
                             transition: 'all 0.15s',
                         }}>
-                            <span>{item.icon}</span>
+                            <span style={{ fontSize: 16 }}>{item.icon}</span>
                             <span>{item.label}</span>
                         </button>
                     ))}
@@ -192,31 +190,52 @@ export default function Dashboard() {
 
                 {/* Main content */}
                 <main style={{
-                    flex: 1, padding: 28, overflowY: 'auto',
-                    marginRight: chatOpen ? 380 : 0,
+                    flex: 1, padding: 32, overflowY: 'auto',
+                    marginRight: chatOpen ? 420 : 0,
                     transition: 'margin-right 0.28s ease',
-                    display: 'flex', flexDirection: 'column', gap: 20,
+                    display: 'flex', flexDirection: 'column', gap: 24,
+                    maxWidth: 1600,
                 }}>
-                    {/* Risk profile banner */}
-                    <RiskProfileBadge report={report} />
+                    {activeNav === 'overview' && (
+                        <>
+                            {/* Risk profile banner */}
+                            <RiskProfileBadge report={report} />
 
-                    {/* Bias cards – 4 up */}
-                    <BiasDashboard biases={report.biases} />
+                            {/* Bias cards – 4 up */}
+                            <BiasDashboard biases={report.biases} />
 
-                    {/* Charts row 1: PnL (2/3) + Radar (1/3) */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 16 }}>
-                        <PnLTimeline trades={trades} />
-                        <BiasRadar biases={report.biases} />
-                    </div>
+                            {/* Charts row 1: PnL (2/3) + Radar (1/3) */}
+                            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 16 }}>
+                                <PnLTimeline trades={trades} />
+                                <BiasRadar biases={report.biases} />
+                            </div>
 
-                    {/* Full-width heatmap */}
-                    <TradingHeatmap trades={trades} />
+                            {/* Charts row 2: WinLoss (1/2) + Drawdown (1/2) */}
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                                <WinLossBar report={report} />
+                                <DrawdownChart trades={trades} />
+                            </div>
+                        </>
+                    )}
 
-                    {/* Charts row 2: WinLoss (1/2) + Drawdown (1/2) */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                        <WinLossBar report={report} />
-                        <DrawdownChart trades={trades} />
-                    </div>
+                    {activeNav === 'biases' && (
+                        <>
+                            <div className="section-label">Detailed Bias Analysis</div>
+                            <BiasDashboard biases={report.biases} expanded />
+                            <BiasRadar biases={report.biases} />
+                        </>
+                    )}
+
+                    {activeNav === 'performance' && (
+                        <>
+                            <div className="section-label">Performance Metrics</div>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                                <WinLossBar report={report} />
+                                <DrawdownChart trades={trades} />
+                            </div>
+                            <PnLTimeline trades={trades} fullWidth />
+                        </>
+                    )}
                 </main>
             </div>
 

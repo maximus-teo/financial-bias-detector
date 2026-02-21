@@ -21,7 +21,7 @@ function TypingIndicator() {
 }
 
 export default function ChatPanel({ isOpen, onClose }) {
-    const { sessionId } = useSessionStore()
+    const { sessionId, setReport } = useSessionStore()
     const [messages, setMessages] = useState([])
     const [input, setInput] = useState('')
     const [loading, setLoading] = useState(false)
@@ -60,6 +60,10 @@ export default function ChatPanel({ isOpen, onClose }) {
             const agentMsg = { role: 'assistant', content: res.response }
             setMessages(prev => [...prev, agentMsg])
             setTurnCount(res.turn_count)
+
+            if (res.updated_report) {
+                setReport(res.updated_report)
+            }
 
             if (res.onboarding_complete && !onboardingComplete) {
                 setOnboardingComplete(true)

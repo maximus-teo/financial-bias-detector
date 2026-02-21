@@ -175,6 +175,7 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
         response=response_text,
         onboarding_complete=updated_session.onboarding_complete,
         turn_count=updated_session.chat_turn_count,
+        updated_report=json.loads(updated_session.report_json) if updated_session.report_json else None,
     )
 
 

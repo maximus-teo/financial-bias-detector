@@ -90,12 +90,36 @@ def update_psychological_profile(session_id: str, profile_update: str, db: Sessi
     existing.update(update_dict)
     session.set_psychological_profile(existing)
 
+    # Adjust the dashboard report scoring based on the onboarding answers
+    if session.report_json:
+        report = json.loads(session.report_json)
+        
+        # If the user states they trade immediately after a loss, drastically increase their revenge score
+        post_loss = update_dict.get("post_loss_urge", "").lower() + " " + update_dict.get("post_loss", "").lower()
+        if "trade" in post_loss or "immediately" in post_loss or "again" in post_loss:
+            for b in report.get("biases", []):
+                if b["bias"] == "revenge_trading":
+                    b["score"] = min(1.0, b["score"] + 0.35)  # artificially bump score
+                    # Recalculate severity tag
+                    sc = b["score"] * 100
+                    if sc < 40:
+                        b["severity"] = "Low"
+                    elif sc < 70:
+                        b["severity"] = "Medium"
+                    else:
+                        b["severity"] = "High"
+                        
+            # Update overall risk score average
+            scores = [b["score"] for b in report.get("biases", [])]
+            report["overall_risk_score"] = round(sum(scores) / len(scores), 2) if scores else 0.0
+            session.report_json = json.dumps(report)
+
     # Check if onboarding is complete
     if update_dict.get("onboarding_complete", False):
         session.onboarding_complete = True
 
     db.commit()
-    return "Profile updated."
+    return "Profile updated and dashboard stats adjusted if necessary."
 
 
 def get_psychological_profile(session_id: str, db: Session) -> str:

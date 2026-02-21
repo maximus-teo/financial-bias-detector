@@ -70,8 +70,9 @@ def call_model(state: AgentState) -> AgentState:
     )
 
     ai_message = response.choices[0].message
-    # Convert to dict for LangGraph
-    msg_dict = {"role": "assistant", "content": ai_message.content or ""}
+    content = ai_message.content or ""
+    msg_dict = {"role": "assistant", "content": content}
+    
     if hasattr(ai_message, "tool_calls") and ai_message.tool_calls:
         msg_dict["tool_calls"] = [
             {
@@ -84,6 +85,29 @@ def call_model(state: AgentState) -> AgentState:
             }
             for tc in ai_message.tool_calls
         ]
+    else:
+        # Fallback for models that output pseudo-JSON tool calls inside the content
+        import re
+        import uuid
+        match = re.search(r'(\{[\s\n]*"name"[\s\n]*:[\s\n]*"[^"]+"[\s\n]*,[\s\n]*"arguments"[\s\n]*:.*\})', content, re.DOTALL)
+        if match:
+            try:
+                parsed = json.loads(match.group(1))
+                if "name" in parsed and "arguments" in parsed:
+                    args = parsed["arguments"]
+                    args_str = json.dumps(args) if isinstance(args, dict) else str(args)
+                    msg_dict["tool_calls"] = [{
+                        "id": f"call_{uuid.uuid4().hex[:8]}",
+                        "type": "function",
+                        "function": {
+                            "name": parsed["name"],
+                            "arguments": args_str
+                        }
+                    }]
+                    # Hide the raw tool JSON from the user message
+                    msg_dict["content"] = content[:match.start()].strip()
+            except Exception:
+                pass
 
     return {
         "messages": [msg_dict],

@@ -80,6 +80,7 @@ class ChatResponse(BaseModel):
     response: str
     onboarding_complete: bool
     turn_count: int
+    updated_report: Optional[dict] = None
 
 
 # ── Onboarding ────────────────────────────────────────────────────────────────
