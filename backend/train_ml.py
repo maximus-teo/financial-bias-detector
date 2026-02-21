@@ -60,7 +60,7 @@ def build_dataset():
         "calm_trader": {"overtrading": 5, "loss_aversion": 5, "revenge": 5},
         "overtrader": {"overtrading": 95, "loss_aversion": 20, "revenge": 30},
         "loss_averse_trader": {"overtrading": 20, "loss_aversion": 95, "revenge": 25},
-        "revenge_trader": {"overtrading": 40, "loss_aversion": 30, "revenge": 95},
+        "revenge_trader": {"overtrading": 30, "loss_aversion": 20, "revenge": 100},
     }
     
     for filename, label_scores in targets.items():

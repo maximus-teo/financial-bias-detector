@@ -157,33 +157,36 @@ export default function Dashboard() {
                     {/* Risk overview in sidebar */}
                     <div style={{ margin: '24px 16px 0', borderTop: '1px solid var(--border)', paddingTop: 20 }}>
                         <div className="section-label" style={{ marginBottom: 12, paddingLeft: 4 }}>Bias Scores</div>
-                        {report.biases?.map(b => (
-                            <div key={b.bias} style={{ marginBottom: 8, paddingLeft: 4 }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3, fontSize: 11 }}>
-                                    <span style={{ color: 'var(--text-secondary)', textTransform: 'capitalize' }}>
-                                        {b.bias.replace('_', ' ')}
-                                    </span>
-                                    <span style={{
-                                        fontWeight: 600, fontFeatureSettings: '"tnum"',
-                                        color: b.severity === 'high' ? 'var(--nbc-red)'
-                                            : b.severity === 'medium' ? 'var(--severity-medium)'
-                                                : 'var(--severity-low)',
-                                    }}>
-                                        {Math.round(b.score * 100)}
-                                    </span>
+                        {report.biases?.map(b => {
+                            const severityLower = (b.severity || 'low').toLowerCase()
+                            return (
+                                <div key={b.bias} style={{ marginBottom: 8, paddingLeft: 4 }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3, fontSize: 11 }}>
+                                        <span style={{ color: 'var(--text-secondary)', textTransform: 'capitalize' }}>
+                                            {b.bias.replace('_', ' ')}
+                                        </span>
+                                        <span style={{
+                                            fontWeight: 600, fontFeatureSettings: '"tnum"',
+                                            color: severityLower === 'high' ? 'var(--nbc-red)'
+                                                : severityLower === 'medium' ? 'var(--severity-medium)'
+                                                    : 'var(--severity-low)',
+                                        }}>
+                                            {Math.round(b.score * 100)}
+                                        </span>
+                                    </div>
+                                    <div style={{ background: 'var(--border)', borderRadius: 3, height: 3, overflow: 'hidden' }}>
+                                        <div style={{
+                                            height: '100%', borderRadius: 3,
+                                            width: `${b.score * 100}%`,
+                                            background: severityLower === 'high' ? 'var(--nbc-red)'
+                                                : severityLower === 'medium' ? 'var(--severity-medium)'
+                                                    : 'var(--severity-low)',
+                                            transition: 'width 0.6s ease',
+                                        }} />
+                                    </div>
                                 </div>
-                                <div style={{ background: 'var(--border)', borderRadius: 3, height: 3, overflow: 'hidden' }}>
-                                    <div style={{
-                                        height: '100%', borderRadius: 3,
-                                        width: `${b.score * 100}%`,
-                                        background: b.severity === 'high' ? 'var(--nbc-red)'
-                                            : b.severity === 'medium' ? 'var(--severity-medium)'
-                                                : 'var(--severity-low)',
-                                        transition: 'width 0.6s ease',
-                                    }} />
-                                </div>
-                            </div>
-                        ))}
+                            )
+                        })}
                     </div>
                 </aside>
 

@@ -42,14 +42,14 @@ def run_full_analysis(df: pd.DataFrame, session_id: str) -> dict:
     for result in bias_results:
         # Match by ID to safely map predictions
         if result["bias"] == "overtrading":
-            result["score"] = ml_scores["overtrading"]
+            result["score"] = ml_scores["overtrading"] / 100.0
         elif result["bias"] == "loss_aversion":
-            result["score"] = ml_scores["loss_aversion"]
+            result["score"] = ml_scores["loss_aversion"] / 100.0
         elif result["bias"] == "revenge_trading":
-            result["score"] = ml_scores["revenge"]
+            result["score"] = ml_scores["revenge"] / 100.0
             
         # Update severity string based on new ML score
-        sc = result["score"]
+        sc = result["score"] * 100
         if sc < 40:
             result["severity"] = "Low"
         elif sc < 70:
