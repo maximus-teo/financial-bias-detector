@@ -106,6 +106,7 @@ export default function Dashboard() {
                     </div>
                     <button
                         onClick={() => setChatOpen(v => !v)}
+                        className="nav-btn"
                         style={{
                             background: chatOpen ? 'var(--nbc-red)' : 'var(--bg-card)',
                             border: '1px solid var(--border)',
@@ -118,11 +119,15 @@ export default function Dashboard() {
                     >
                         {chatOpen ? '✕ Close Chat' : '💬 Ask NBC Coach'}
                     </button>
-                    <button onClick={() => navigate('/')} style={{
-                        background: 'none', border: '1px solid var(--border)',
-                        color: 'var(--text-secondary)', borderRadius: 8, padding: '7px 14px',
-                        cursor: 'pointer', fontSize: 18, fontFamily: 'inherit',
-                    }}>
+                    <button
+                        onClick={() => navigate('/')}
+                        className="nav-btn"
+                        style={{
+                            background: 'none', border: '1px solid var(--border)',
+                            color: 'var(--text-secondary)', borderRadius: 8, padding: '7px 14px',
+                            cursor: 'pointer', fontSize: 18, fontFamily: 'inherit',
+                        }}
+                    >
                         ← New Session
                     </button>
                 </div>

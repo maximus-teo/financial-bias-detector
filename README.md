@@ -36,6 +36,31 @@ This project is a full-stack proof-of-concept for detecting cognitive biases in 
 
 ## How to Run Locally
 
+### Quick Start (if already setup before)
+1. Open a terminal and navigate to `backend`
+   ```bash
+   cd backend
+   ```
+2. Activate virtual environment
+   ```bash
+   ./venv/Scripts/Activate.ps1
+   ```
+3. Run FastAPI deployment server
+   ```bash
+   uvicorn main:app --reload
+   ```
+   *The backend runs on `http://localhost:8000`.*
+4. Open a second terminal and navigate to `frontend`
+   ```bash
+   cd frontend
+   ```
+5. Run the Vite deployment server
+   ```bash
+   npm run dev
+   ```
+   *The backend runs on `http://localhost:5173`.*
+   *If 'Failed to fetch' error occurs, go to `backend/main.py` and add your corresponding URL to the list of CORS `allowed_origins`.*
+
 ### 1. Backend Setup
 
 1. Open a terminal and navigate to the project directory:

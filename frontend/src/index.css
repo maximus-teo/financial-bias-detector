@@ -175,3 +175,11 @@ input::placeholder,
 textarea::placeholder {
   color: var(--text-tertiary);
 }
+
+.nav-btn {
+  transition: all 0.15s ease;
+}
+
+.nav-btn:hover {
+  background-color: var(--nbc-light-gray) !important;
+}
